@@ -6,7 +6,7 @@ from dataclasses import dataclass
 from typing import Dict, List, Optional
 
 import betterproto
-from betterproto.grpc.grpclib_server import ServiceBase
+#from betterproto.grpc.grpclib_server import ServiceBase
 
 
 class ActionType(betterproto.Enum):
@@ -6510,7 +6510,7 @@ class CompetitionSettleEnd(betterproto.Message):
     team_infos: List["CompetitionResultsTeamInfo"] = betterproto.message_field(2)
     leave_user: "CompetitionUserBase" = betterproto.message_field(3)
     reason: Optional["CompetitionSettleEndCompetitionEndReason"] = (
-        betterproto.enum_field(4, optional=True, group="_reason")
+        betterproto.enum_field(4, group="_reason") # patched
     )
     take_the_stage_biz: "CompetitionSettleEndTakeTheStageBiz" = (
         betterproto.message_field(100)
@@ -6521,7 +6521,7 @@ class CompetitionSettleEnd(betterproto.Message):
 class CompetitionSettleEndTakeTheStageBiz(betterproto.Message):
     take_the_stage_status: Optional[
         "CompetitionSettleEndTakeTheStageBizTakeTheStageStatus"
-    ] = betterproto.enum_field(1, optional=True, group="_take_the_stage_status")
+    ] = betterproto.enum_field(1, group="_take_the_stage_status") # patched
 
 
 @dataclass(eq=False, repr=False)
@@ -6656,7 +6656,7 @@ class SubGoalData(betterproto.Message):
 @dataclass(eq=False, repr=False)
 class PollEndContent(betterproto.Message):
     end_type: Optional["PollEndContentPollEndType"] = betterproto.enum_field(
-        1, optional=True, group="_end_type"
+        1, group="_end_type"
     )
     option_list: List["PollOptionInfo"] = betterproto.message_field(2)
     operator: "User" = betterproto.message_field(3)
@@ -6694,7 +6694,7 @@ class PermitResponse(betterproto.Message):
 class StarCommentConfig(betterproto.Message):
     star_comment_switch: bool = betterproto.bool_field(1)
     grant_group: Optional["StarCommentConfigGrantGroup"] = betterproto.enum_field(
-        2, optional=True, group="_grant_group"
+        2, group="_grant_group"
     )
     grant_level: int = betterproto.int32_field(3)
     star_comment_qualification: bool = betterproto.bool_field(4)
@@ -6708,7 +6708,7 @@ class PunishEventInfo(betterproto.Message):
     punish_id: str = betterproto.string_field(3)
     violation_uid: int = betterproto.int64_field(4)
     punish_type_id: Optional["PunishEventInfoPunishTypeId"] = betterproto.enum_field(
-        5, optional=True, group="_punish_type_id"
+        5, group="_punish_type_id"
     )
     duration: int = betterproto.int64_field(6)
     punish_perception_code: str = betterproto.string_field(7)
@@ -6752,7 +6752,7 @@ class WebcastGoalUpdateMessage(betterproto.Message):
     unpin: bool = betterproto.bool_field(14)
     pin_info: "GoalPinInfo" = betterproto.message_field(15)
     update_source: Optional["WebcastGoalUpdateMessageGoalMessageSource"] = (
-        betterproto.enum_field(16, optional=True, group="_update_source")
+        betterproto.enum_field(16, group="_update_source")
     )
     goal_extra: str = betterproto.string_field(17)
 
@@ -6901,7 +6901,7 @@ class WebcastMemberMessage(betterproto.Message):
     action_duration: int = betterproto.int64_field(22)
     user_share_type: str = betterproto.string_field(23)
     display_style: Optional["WebcastMemberMessageDisplayStyle"] = (
-        betterproto.enum_field(24, optional=True, group="_display_style")
+        betterproto.enum_field(24, group="_display_style")
     )
     admin_permissions: Dict[str, int] = betterproto.map_field(
         25, betterproto.TYPE_STRING, betterproto.TYPE_INT32
@@ -6918,7 +6918,7 @@ class WebcastMemberMessage(betterproto.Message):
     show_wave: int = betterproto.int64_field(33)
     wave_algorithm_data: "WaveAlgorithmData" = betterproto.message_field(34)
     hit_ab_status: Optional["WebcastMemberMessageHitAbStatus"] = betterproto.enum_field(
-        35, optional=True, group="_hit_ab_status"
+        35, group="_hit_ab_status"
     )
 
 
@@ -6949,12 +6949,12 @@ class WebcastBottomMessage(betterproto.Message):
     base_message: "CommonMessageData" = betterproto.message_field(1)
     content: str = betterproto.string_field(2)
     show_type: Optional["WebcastBottomMessageShowType"] = betterproto.enum_field(
-        3, optional=True, group="_show_type"
+        3, group="_show_type"
     )
     text_type: "WebcastBottomMessageTextType" = betterproto.enum_field(4)
     duration: int = betterproto.int64_field(5)
     biz_type: Optional["WebcastBottomMessageBizType"] = betterproto.enum_field(
-        6, optional=True, group="_biz_type"
+        6, group="_biz_type"
     )
     violation_user_id: int = betterproto.int64_field(7)
     punish_info: "PunishEventInfo" = betterproto.message_field(8)
@@ -6962,7 +6962,7 @@ class WebcastBottomMessage(betterproto.Message):
     detail_url: str = betterproto.string_field(10)
     float_style: int = betterproto.int32_field(11)
     float_icon_type: Optional["WebcastBottomMessagePerceptionDialogIconType"] = (
-        betterproto.enum_field(12, optional=True, group="_float_icon_type")
+        betterproto.enum_field(12, group="_float_icon_type")
     )
 
 
@@ -7000,14 +7000,14 @@ class WebcastLinkMicBattle(betterproto.Message):
     battle_id: int = betterproto.int64_field(2)
     battle_setting: "BattleSetting" = betterproto.message_field(3)
     action: Optional["WebcastLinkMicBattleBattleAction"] = betterproto.enum_field(
-        4, optional=True, group="_action"
+        4, group="_action"
     )
     battle_result: Dict[int, "BattleResult"] = betterproto.map_field(
         5, betterproto.TYPE_INT64, betterproto.TYPE_MESSAGE
     )
     m_battle_display_config: "BattleDisplayConfig" = betterproto.message_field(6)
     invitee_gift_permission_type: Optional["WebcastLinkMicBattleGiftPermissionType"] = (
-        betterproto.enum_field(8, optional=True, group="_invitee_gift_permission_type")
+        betterproto.enum_field(8, group="_invitee_gift_permission_type")
     )
     armies: List["UserArmiesWrapper"] = betterproto.message_field(9)
     anchor_info: List["BattleUserInfoWrapper"] = betterproto.message_field(10)
@@ -7293,7 +7293,7 @@ class NoticeboardTemplateCreateResponseResponseData(betterproto.Message):
 @dataclass(eq=False, repr=False)
 class ResourceAttr(betterproto.Message):
     resource_location: Optional["ResourceAttrResourceLocation"] = (
-        betterproto.enum_field(1, optional=True, group="_resource_location")
+        betterproto.enum_field(1, group="_resource_location")
     )
     gecko_attr: "GeckoAttr" = betterproto.message_field(2)
 
@@ -7377,7 +7377,7 @@ class WebcastGiftPanelUpdateMessage(betterproto.Message):
 class ProfileCardPanel(betterproto.Message):
     use_new_profile_card_style: bool = betterproto.bool_field(1)
     badge_text_position: Optional["ProfileCardPanelBadgeTextPosition"] = (
-        betterproto.enum_field(2, optional=True, group="_badge_text_position")
+        betterproto.enum_field(2, group="_badge_text_position")
     )
     projection_config: "ProjectionConfig" = betterproto.message_field(3)
     profile_content: "ProfileContent" = betterproto.message_field(4)
@@ -7573,7 +7573,7 @@ class OptPairInfo(betterproto.Message):
     mapping_id: int = betterproto.int64_field(1)
     display_user_list: List["OptPairInfoOptPairUser"] = betterproto.message_field(2)
     button_notice_type: Optional["OptPairInfoOptPairStatus"] = betterproto.enum_field(
-        3, optional=True, group="_button_notice_type"
+        3, group="_button_notice_type"
     )
     expected_time_sec: int = betterproto.int64_field(4)
     opt_pair_type: int = betterproto.int64_field(5)
@@ -7692,7 +7692,7 @@ class AnchorSettingsUpdateResponseExtra(betterproto.Message):
 @dataclass(eq=False, repr=False)
 class TagV2(betterproto.Message):
     tag_classification: Optional["TagV2TagClassification"] = betterproto.enum_field(
-        1, optional=True, group="_tag_classification"
+        1, group="_tag_classification"
     )
     tag_type: int = betterproto.int32_field(2)
     tag_value: str = betterproto.string_field(3)
@@ -7922,7 +7922,7 @@ class PriceChangeInfo(betterproto.Message):
     order_id: str = betterproto.string_field(10)
     no_confirm_cancel_contract_date: int = betterproto.int64_field(11)
     billing_type: Optional["PriceChangeInfoBillingType"] = betterproto.enum_field(
-        12, optional=True, group="_billing_type"
+        12, group="_billing_type"
     )
     changed_price: str = betterproto.string_field(13)
 
@@ -8167,7 +8167,7 @@ class WebcastSubNotifyMessage(betterproto.Message):
     base_message: "CommonMessageData" = betterproto.message_field(1)
     user: "User" = betterproto.message_field(2)
     exhibition_type: Optional["WebcastSubNotifyMessageExhibitionType"] = (
-        betterproto.enum_field(3, optional=True, group="_exhibition_type")
+        betterproto.enum_field(3, group="_exhibition_type")
     )
     sub_month: int = betterproto.int64_field(4)
     subscribe_type: "WebcastSubNotifyMessageSubscribeType" = betterproto.enum_field(5)
@@ -8175,7 +8175,7 @@ class WebcastSubNotifyMessage(betterproto.Message):
         betterproto.enum_field(6)
     )
     subscribe_message_type: Optional["WebcastSubNotifyMessageMessageType"] = (
-        betterproto.enum_field(7, optional=True, group="_subscribe_message_type")
+        betterproto.enum_field(7, group="_subscribe_message_type")
     )
     subscribing_status: "WebcastSubNotifyMessageSubscribingStatus" = (
         betterproto.enum_field(8)
@@ -8183,10 +8183,10 @@ class WebcastSubNotifyMessage(betterproto.Message):
     is_send: bool = betterproto.bool_field(9)
     is_custom: bool = betterproto.bool_field(10)
     gift_source: Optional["WebcastSubNotifyMessageGiftSource"] = betterproto.enum_field(
-        11, optional=True, group="_gift_source"
+        11, group="_gift_source"
     )
     message_display_style: Optional["WebcastSubNotifyMessageMessageDisplayStyle"] = (
-        betterproto.enum_field(12, optional=True, group="_message_display_style")
+        betterproto.enum_field(12, group="_message_display_style")
     )
     public_area_message_common: "PublicAreaMessageCommon" = betterproto.message_field(
         13
@@ -8222,7 +8222,7 @@ class KaraokeSong(betterproto.Message):
 class CompetitionScoreChange(betterproto.Message):
     team_infos: List["CompetitionResultsTeamInfo"] = betterproto.message_field(1)
     trigger_reason: Optional["CompetitionScoreChangeTriggerReason"] = (
-        betterproto.enum_field(2, optional=True, group="_trigger_reason")
+        betterproto.enum_field(2, group="_trigger_reason")
     )
     take_the_stage_biz: "CompetitionScoreChangeTakeTheStageBiz" = (
         betterproto.message_field(100)
@@ -8232,7 +8232,7 @@ class CompetitionScoreChange(betterproto.Message):
 @dataclass(eq=False, repr=False)
 class CompetitionScoreChangeTakeTheStageBiz(betterproto.Message):
     status: Optional["CompetitionScoreChangeTakeTheStageBizTakeTheStageStatus"] = (
-        betterproto.enum_field(1, optional=True, group="_status")
+        betterproto.enum_field(1, group="_status")
     )
     performance_start_time: int = betterproto.int64_field(2)
     order_info: "TakeTheStageOrderInfo" = betterproto.message_field(3)
@@ -8271,7 +8271,7 @@ class FansEventDataEntranceGuidanceData(betterproto.Message):
     text: "Text" = betterproto.message_field(1)
     icon: "ImageModel" = betterproto.message_field(2)
     guidance_type: Optional["FansEventDataEntranceGuidanceDataEntranceGuidanceType"] = (
-        betterproto.enum_field(5, optional=True, group="_guidance_type")
+        betterproto.enum_field(5, group="_guidance_type")
     )
     freq_control_key: str = betterproto.string_field(6)
     freq_control_duration: int = betterproto.int64_field(7)
@@ -8297,7 +8297,7 @@ class FansEventDataNewFansData(betterproto.Message):
 @dataclass(eq=False, repr=False)
 class FansEventDataTaskCompleteData(betterproto.Message):
     task_type: Optional["FansEventDataTaskCompleteDataFansTaskType"] = (
-        betterproto.enum_field(1, optional=True, group="_task_type")
+        betterproto.enum_field(1, group="_task_type")
     )
     is_clear_today: bool = betterproto.bool_field(2)
 
@@ -8462,14 +8462,14 @@ class CoHost(betterproto.Message):
 @dataclass(eq=False, repr=False)
 class SubTimerSticker(betterproto.Message):
     type: Optional["SubTimerStickerSubTimerStickerChangeType"] = betterproto.enum_field(
-        1, optional=True, group="_type"
+        1, group="_type"
     )
     timer_id: int = betterproto.int64_field(2)
     op_type: Optional["SubTimerStickerTimerOpType"] = betterproto.enum_field(
-        3, optional=True, group="_op_type"
+        3, group="_op_type"
     )
     timer_status: Optional["SubTimerStickerTimerStatus"] = betterproto.enum_field(
-        4, optional=True, group="_timer_status"
+        4, group="_timer_status"
     )
     anchor_side_title: str = betterproto.string_field(5)
     user_side_title: str = betterproto.string_field(6)
@@ -8718,7 +8718,7 @@ class CommonMessageData(betterproto.Message):
     anchor_fold_type_for_web: int = betterproto.int64_field(24)
     client_send_time: int = betterproto.int64_field(25)
     dispatch_strategy: Optional["CommonMessageDataImDispatchStrategy"] = (
-        betterproto.enum_field(26, optional=True, group="_dispatch_strategy")
+        betterproto.enum_field(26, group="_dispatch_strategy")
     )
 
 
@@ -9003,7 +9003,7 @@ class JoinGroupMessageExtraRivalExtra(betterproto.Message):
     opt_pair_info: "OptPairInfo" = betterproto.message_field(14)
     eoy_level: int = betterproto.int64_field(15)
     nudge_info: Optional["JoinGroupMessageExtraRivalExtraCohostNudgeInfo"] = (
-        betterproto.enum_field(16, optional=True, group="_nudge_info")
+        betterproto.enum_field(16, group="_nudge_info")
     )
     reservation_id: int = betterproto.int64_field(17)
     follower_count: int = betterproto.int64_field(18)
@@ -9069,7 +9069,7 @@ class SubPinCard(betterproto.Message):
 @dataclass(eq=False, repr=False)
 class SubPinCardText(betterproto.Message):
     type: Optional["SubPinCardTextTextType"] = betterproto.enum_field(
-        1, optional=True, group="_type"
+        1, group="_type"
     )
     content: str = betterproto.string_field(2)
 
@@ -9078,7 +9078,7 @@ class SubPinCardText(betterproto.Message):
 class CompetitionInitiateInfo(betterproto.Message):
     initiator: "CompetitionUserBase" = betterproto.message_field(1)
     initiate_type: Optional["CompetitionInitiateInfoCompetitionInitiateType"] = (
-        betterproto.enum_field(2, optional=True, group="_initiate_type")
+        betterproto.enum_field(2, group="_initiate_type")
     )
     teams: List["CompetitionTeamBase"] = betterproto.message_field(3)
     ab_infos: Dict[int, "CompetitionAbInfo"] = betterproto.map_field(
@@ -9186,7 +9186,7 @@ class ForceInsertMetricsItem(betterproto.Message):
 class LinkerMediaChangeOperator(betterproto.Message):
     user_id: int = betterproto.int64_field(1)
     operator_type: Optional["LinkerMediaChangeOperatorLinkMicUserAdminType"] = (
-        betterproto.enum_field(2, optional=True, group="_operator_type")
+        betterproto.enum_field(2, group="_operator_type")
     )
     nick_name: str = betterproto.string_field(3)
     display_id: str = betterproto.string_field(4)
@@ -9255,7 +9255,7 @@ class CompetitionReplyResponseResponseData(betterproto.Message):
 class AuditInfo(betterproto.Message):
     violation_id: int = betterproto.int64_field(1)
     task_type: Optional["AuditInfoAuditTaskType"] = betterproto.enum_field(
-        2, optional=True, group="_task_type"
+        2, group="_task_type"
     )
 
 
@@ -9284,10 +9284,10 @@ class WebcastGameGuessWidgetsMessage(betterproto.Message):
 @dataclass(eq=False, repr=False)
 class PreviewGameMomentData(betterproto.Message):
     preview_game_info_type: Optional["PreviewGameMomentDataPreviewGameInfoType"] = (
-        betterproto.enum_field(1, optional=True, group="_preview_game_info_type")
+        betterproto.enum_field(1, group="_preview_game_info_type")
     )
     game_moment_message_type: Optional["PreviewGameMomentDataGameMomentMessageType"] = (
-        betterproto.enum_field(2, optional=True, group="_game_moment_message_type")
+        betterproto.enum_field(2, group="_game_moment_message_type")
     )
     event_time: int = betterproto.int64_field(3)
     max_time: int = betterproto.int64_field(4)
@@ -9327,7 +9327,7 @@ class WebcastMiddleTouchMessage(betterproto.Message):
 @dataclass(eq=False, repr=False)
 class PollVoteLimit(betterproto.Message):
     limit_type: Optional["PollVoteLimitPollVoteLimitType"] = betterproto.enum_field(
-        1, optional=True, group="_limit_type"
+        1, group="_limit_type"
     )
     vote_count_limit: int = betterproto.int64_field(2)
 
@@ -9364,7 +9364,7 @@ class LokiExtraContent(betterproto.Message):
 @dataclass(eq=False, repr=False)
 class ImageBadge(betterproto.Message):
     badge_display_type: Optional["ImageBadgeBadgeDisplayType"] = betterproto.enum_field(
-        1, optional=True, group="_badge_display_type"
+        1, group="_badge_display_type"
     )
     image_model: "ImageModel" = betterproto.message_field(2)
 
@@ -9422,7 +9422,7 @@ class ReplyResponse(betterproto.Message):
 class BattleResult(betterproto.Message):
     user_id: int = betterproto.int64_field(1)
     result: Optional["BattleResultResult"] = betterproto.enum_field(
-        2, optional=True, group="_result"
+        2, group="_result"
     )
     score: int = betterproto.int64_field(3)
 
@@ -9699,7 +9699,7 @@ class StarCommentMessage(betterproto.Message):
     duration: int = betterproto.int64_field(4)
     start_time_ms: int = betterproto.int64_field(5)
     comment_option: Optional["StarCommentMessageStarCommentOption"] = (
-        betterproto.enum_field(6, optional=True, group="_comment_option")
+        betterproto.enum_field(6, group="_comment_option")
     )
     content_language: str = betterproto.string_field(7)
 
@@ -9710,19 +9710,19 @@ class ListUser(betterproto.Message):
     linkmic_id: int = betterproto.int64_field(2)
     linkmic_id_str: str = betterproto.string_field(3)
     link_status: Optional["ListUserLinkListStatus"] = betterproto.enum_field(
-        4, optional=True, group="_link_status"
+        4, group="_link_status"
     )
     link_type: Optional["ListUserLinkType"] = betterproto.enum_field(
-        5, optional=True, group="_link_type"
+        5, group="_link_type"
     )
     user_position: int = betterproto.int32_field(6)
     silence_status: Optional["ListUserLinkSilenceStatus"] = betterproto.enum_field(
-        7, optional=True, group="_silence_status"
+        7, group="_silence_status"
     )
     modify_time: int = betterproto.int64_field(8)
     channel_id: int = betterproto.int64_field(9)
     role_type: Optional["ListUserLinkRoleType"] = betterproto.enum_field(
-        10, optional=True, group="_role_type"
+        10, group="_role_type"
     )
 
 
@@ -9740,13 +9740,13 @@ class NoticeboardCreateResponseResponseData(betterproto.Message):
 @dataclass(eq=False, repr=False)
 class LinkerMediaChangeContent(betterproto.Message):
     op: Optional["LinkerMediaChangeContentGuestMicCameraManageOp"] = (
-        betterproto.enum_field(1, optional=True, group="_op")
+        betterproto.enum_field(1, group="_op")
     )
     to_user_id: int = betterproto.int64_field(2)
     anchor_id: int = betterproto.int64_field(3)
     room_id: int = betterproto.int64_field(4)
     change_scene: Optional["LinkerMediaChangeContentGuestMicCameraChangeScene"] = (
-        betterproto.enum_field(5, optional=True, group="_change_scene")
+        betterproto.enum_field(5, group="_change_scene")
     )
     operator_info: "LinkerMediaChangeOperator" = betterproto.message_field(7)
 
@@ -9772,7 +9772,7 @@ class GiftPanelBeaconBubble(betterproto.Message):
     lynx_url: str = betterproto.string_field(1)
     lynx_extra: str = betterproto.string_field(2)
     type: Optional["GiftPanelBeaconBubbleGiftPanelBeaconBubbleType"] = (
-        betterproto.enum_field(3, optional=True, group="_type")
+        betterproto.enum_field(3, group="_type")
     )
 
 
@@ -9818,7 +9818,7 @@ class WebcastGiftGalleryMessage(betterproto.Message):
     user: "User" = betterproto.message_field(3)
     to_user: "User" = betterproto.message_field(4)
     msg_type: Optional["WebcastGiftGalleryMessageGiftGalleryMsgType"] = (
-        betterproto.enum_field(5, optional=True, group="_msg_type")
+        betterproto.enum_field(5, group="_msg_type")
     )
     all_sponsored: bool = betterproto.bool_field(21)
     priority: "GiftImPriority" = betterproto.message_field(51)
@@ -9981,7 +9981,7 @@ class WebcastGameSettingChangeMessage(betterproto.Message):
 class WebcastPartnershipDropsUpdateMessage(betterproto.Message):
     base_message: "CommonMessageData" = betterproto.message_field(1)
     change_mode: Optional["WebcastPartnershipDropsUpdateMessageChangeMode"] = (
-        betterproto.enum_field(2, optional=True, group="_change_mode")
+        betterproto.enum_field(2, group="_change_mode")
     )
     drops_id: str = betterproto.string_field(3)
     task_id: str = betterproto.string_field(4)
@@ -10011,10 +10011,10 @@ class PermitBizContent(betterproto.Message):
     expire_time: int = betterproto.int64_field(2)
     operator_user_info: "User" = betterproto.message_field(3)
     operator_link_admin_type: Optional["PermitBizContentLinkMicUserAdminType"] = (
-        betterproto.enum_field(4, optional=True, group="_operator_link_admin_type")
+        betterproto.enum_field(4, group="_operator_link_admin_type")
     )
     link_user_type: Optional["PermitBizContentLinkUserType"] = betterproto.enum_field(
-        5, optional=True, group="_link_user_type"
+        5, group="_link_user_type"
     )
 
 
@@ -10076,7 +10076,7 @@ class WebcastLiveInfoAuditNoticeMessage(betterproto.Message):
     base_message: "CommonMessageData" = betterproto.message_field(1)
     audit_content_type: Optional[
         "WebcastLiveInfoAuditNoticeMessageLiveInfoAuditContentType"
-    ] = betterproto.enum_field(2, optional=True, group="_audit_content_type")
+    ] = betterproto.enum_field(2, group="_audit_content_type")
     audit_status: "AuditStatus" = betterproto.enum_field(3)
     text_starling_key: str = betterproto.string_field(4)
 
@@ -10219,7 +10219,7 @@ class LinkerCreateContent(betterproto.Message):
 class PaidEvent(betterproto.Message):
     event_id: int = betterproto.int64_field(1)
     paid_type: Optional["PaidEventPaidType"] = betterproto.enum_field(
-        2, optional=True, group="_paid_type"
+        2, group="_paid_type"
     )
 
 
@@ -10357,7 +10357,7 @@ class MGetAbInfosReq(betterproto.Message):
 @dataclass(eq=False, repr=False)
 class CohostAbTest(betterproto.Message):
     ab_test_type: Optional["CohostAbTestCohostAbTestType"] = betterproto.enum_field(
-        1, optional=True, group="_ab_test_type"
+        1, group="_ab_test_type"
     )
     group: int = betterproto.int64_field(2)
 
@@ -10427,7 +10427,7 @@ class PlayTogetherMember(betterproto.Message):
     accept_time: int = betterproto.int64_field(6)
     relation_tag: str = betterproto.string_field(7)
     relation_tag_enum: Optional["PlayTogetherMemberPlayTogetherRelationTag"] = (
-        betterproto.enum_field(8, optional=True, group="_relation_tag_enum")
+        betterproto.enum_field(8, group="_relation_tag_enum")
     )
 
 
@@ -10438,19 +10438,19 @@ class LinkUserState(betterproto.Message):
     pos: "MicPositionData" = betterproto.message_field(3)
     linked_time_nano: int = betterproto.int64_field(4)
     online_user_state: Optional["LinkUserStateOnlineUserState"] = (
-        betterproto.enum_field(5, optional=True, group="_online_user_state")
+        betterproto.enum_field(5, group="_online_user_state")
     )
     audio_muted: Optional["LinkUserStateMediaState"] = betterproto.enum_field(
-        6, optional=True, group="_audio_muted"
+        6, group="_audio_muted"
     )
     video_muted: Optional["LinkUserStateMediaState"] = betterproto.enum_field(
-        7, optional=True, group="_video_muted"
+        7, group="_video_muted"
     )
     rtc_connection: Optional["LinkUserStateRtcConnectionState"] = (
-        betterproto.enum_field(8, optional=True, group="_rtc_connection")
+        betterproto.enum_field(8, group="_rtc_connection")
     )
     network_state: Optional["LinkUserStateNetworkState"] = betterproto.enum_field(
-        9, optional=True, group="_network_state"
+        9, group="_network_state"
     )
     avatar: "AvatarState" = betterproto.message_field(10)
 
@@ -10559,7 +10559,7 @@ class PrivilegePrompt(betterproto.Message):
 class KickOutContent(betterproto.Message):
     left_user: "Player" = betterproto.message_field(1)
     kick_out_reason: Optional["KickOutContentKickoutReason"] = betterproto.enum_field(
-        2, optional=True, group="_kick_out_reason"
+        2, group="_kick_out_reason"
     )
     linked_user_ui_positions: List[str] = betterproto.string_field(3)
     ui_pos: List["PosIdentity"] = betterproto.message_field(4)
@@ -10574,7 +10574,7 @@ class WebcastPollMessage(betterproto.Message):
     end_content: "PollEndContent" = betterproto.message_field(5)
     update_content: "PollUpdateVotesContent" = betterproto.message_field(6)
     poll_kind: Optional["WebcastPollMessagePollKind"] = betterproto.enum_field(
-        7, optional=True, group="_poll_kind"
+        7, group="_poll_kind"
     )
     poll_basic_info: "PollBasicInfo" = betterproto.message_field(8)
     template_content: "TemplateContent" = betterproto.message_field(9)
@@ -10609,7 +10609,7 @@ class GuessRound(betterproto.Message):
     start_time: int = betterproto.int64_field(5)
     end_time: int = betterproto.int64_field(6)
     guess_status: Optional["GuessRoundGuessStatus"] = betterproto.enum_field(
-        7, optional=True, group="_guess_status"
+        7, group="_guess_status"
     )
     room_id_str: str = betterproto.string_field(8)
     live_id: int = betterproto.int64_field(9)
@@ -10753,7 +10753,7 @@ class AssetsModel(betterproto.Message):
 class LinkerKickOutContent(betterproto.Message):
     from_uid: int = betterproto.int64_field(1)
     kick_out_reason: Optional["LinkerKickOutContentKickoutReason"] = (
-        betterproto.enum_field(2, optional=True, group="_kick_out_reason")
+        betterproto.enum_field(2, group="_kick_out_reason")
     )
 
 
@@ -10761,13 +10761,13 @@ class LinkerKickOutContent(betterproto.Message):
 class UserPlayInfo(betterproto.Message):
     play_id: int = betterproto.int64_field(1)
     play_scene: Optional["UserPlayInfoPlayScene"] = betterproto.enum_field(
-        2, optional=True, group="_play_scene"
+        2, group="_play_scene"
     )
     score: int = betterproto.int64_field(3)
     rank: int = betterproto.int32_field(4)
     target_score: int = betterproto.int64_field(5)
     user_tag: Optional["UserPlayInfoPlayUserTag"] = betterproto.enum_field(
-        6, optional=True, group="_user_tag"
+        6, group="_user_tag"
     )
 
 
@@ -11149,7 +11149,7 @@ class LinkerReplyContent(betterproto.Message):
         13, betterproto.TYPE_INT64, betterproto.TYPE_INT64
     )
     multi_live_layout_enable: Optional["LinkerReplyContentLinkmicMultiLiveEnum"] = (
-        betterproto.enum_field(14, optional=True, group="_multi_live_layout_enable")
+        betterproto.enum_field(14, group="_multi_live_layout_enable")
     )
     multi_live_setting: "MultiLiveAnchorPanelSettings" = betterproto.message_field(15)
     action_id: int = betterproto.int64_field(16)
@@ -11172,7 +11172,7 @@ class CountdownForAllUser(betterproto.Message):
 @dataclass(eq=False, repr=False)
 class SubOperation(betterproto.Message):
     operation_type: Optional["SubOperationSubOperationType"] = betterproto.enum_field(
-        1, optional=True, group="_operation_type"
+        1, group="_operation_type"
     )
     operation_time: int = betterproto.int64_field(2)
 
@@ -11182,7 +11182,7 @@ class BarrageTypeSubscribeGiftParam(betterproto.Message):
     gift_sub_count: int = betterproto.int64_field(1)
     show_gift_sub_count: bool = betterproto.bool_field(2)
     gift_source: Optional["BarrageTypeSubscribeGiftParamGiftSource"] = (
-        betterproto.enum_field(3, optional=True, group="_gift_source")
+        betterproto.enum_field(3, group="_gift_source")
     )
 
 
@@ -11196,7 +11196,7 @@ class CountdownForAllConfig(betterproto.Message):
 class CompetitionFinish(betterproto.Message):
     competition_finish_time: int = betterproto.int64_field(1)
     reason: Optional["CompetitionFinishCompetitionEndReason"] = betterproto.enum_field(
-        2, optional=True, group="_reason"
+        2, group="_reason"
     )
     leave_user: "CompetitionUserBase" = betterproto.message_field(3)
 
@@ -11314,10 +11314,10 @@ class TimerDetail(betterproto.Message):
     screen_w: int = betterproto.int64_field(18)
     screen_h: int = betterproto.int64_field(19)
     timer_status: Optional["TimerDetailTimerStatus"] = betterproto.enum_field(
-        20, optional=True, group="_timer_status"
+        20, group="_timer_status"
     )
     antidirt_status: Optional["TimerDetailAntidirtStatus"] = betterproto.enum_field(
-        21, optional=True, group="_antidirt_status"
+        21, group="_antidirt_status"
     )
     audit_status: "TimerDetailAuditStatus" = betterproto.enum_field(22)
     audit_info: "TimerDetailAuditInfo" = betterproto.message_field(23)
@@ -11327,7 +11327,7 @@ class TimerDetail(betterproto.Message):
 class TimerDetailAuditInfo(betterproto.Message):
     violation_id: int = betterproto.int64_field(1)
     task_type: Optional["TimerDetailAuditInfoAuditTaskType"] = betterproto.enum_field(
-        2, optional=True, group="_task_type"
+        2, group="_task_type"
     )
 
 
@@ -11698,7 +11698,7 @@ class WebcastLinkMicArmies(betterproto.Message):
     gift_sent_time: int = betterproto.int64_field(5)
     score_update_time: int = betterproto.int64_field(6)
     trigger_reason: Optional["WebcastLinkMicArmiesTriggerReason"] = (
-        betterproto.enum_field(7, optional=True, group="_trigger_reason")
+        betterproto.enum_field(7, group="_trigger_reason")
     )
     from_user_id: int = betterproto.int64_field(8)
     gift_id: int = betterproto.int64_field(9)
@@ -11890,7 +11890,7 @@ class WebcastFansEventMessage(betterproto.Message):
     base_message: "CommonMessageData" = betterproto.message_field(1)
     user: "User" = betterproto.message_field(2)
     event_type: Optional["WebcastFansEventMessageFansEventType"] = (
-        betterproto.enum_field(11, optional=True, group="_event_type")
+        betterproto.enum_field(11, group="_event_type")
     )
     fans_level_info: "FansLevelInfo" = betterproto.message_field(12)
     fans_level_upgrade_info: "FansLevelUpgradeInfo" = betterproto.message_field(13)
@@ -11964,7 +11964,7 @@ class AnchorMessage(betterproto.Message):
 class ContentPosition(betterproto.Message):
     content_i_d: str = betterproto.string_field(1)
     content_type: Optional["ContentPositionContentPositionType"] = (
-        betterproto.enum_field(2, optional=True, group="_content_type")
+        betterproto.enum_field(2, group="_content_type")
     )
     pos: "MicPositionData" = betterproto.message_field(3)
     content_linkmic_i_d: str = betterproto.string_field(4)
@@ -12031,7 +12031,7 @@ class PollCountLimit(betterproto.Message):
 @dataclass(eq=False, repr=False)
 class TextBadge(betterproto.Message):
     badge_display_type: Optional["TextBadgeBadgeDisplayType"] = betterproto.enum_field(
-        1, optional=True, group="_badge_display_type"
+        1, group="_badge_display_type"
     )
     key: str = betterproto.string_field(2)
     default_pattern: str = betterproto.string_field(3)
@@ -12404,7 +12404,7 @@ class FanTicketRoomNoticeContent(betterproto.Message):
     fan_ticket_icon_url: str = betterproto.string_field(5)
     play_id: int = betterproto.int64_field(6)
     play_scene: Optional["FanTicketRoomNoticeContentPlayScene"] = (
-        betterproto.enum_field(7, optional=True, group="_play_scene")
+        betterproto.enum_field(7, group="_play_scene")
     )
 
 
@@ -12532,7 +12532,7 @@ class LastLayoutSetting(betterproto.Message):
 @dataclass(eq=False, repr=False)
 class PerceptionSheetInfo(betterproto.Message):
     icon_type: Optional["PerceptionSheetInfoPerceptionDialogIconType"] = (
-        betterproto.enum_field(1, optional=True, group="_icon_type")
+        betterproto.enum_field(1, group="_icon_type")
     )
     title: "Text" = betterproto.message_field(2)
     sub_title: "Text" = betterproto.message_field(3)
@@ -12592,7 +12592,7 @@ class AnimationData(betterproto.Message):
 class PermitJoinGroupBizContent(betterproto.Message):
     reply_status: "PermitJoinGroupBizContentReplyStatus" = betterproto.enum_field(1)
     source_type: Optional["PermitJoinGroupBizContentSourceType"] = (
-        betterproto.enum_field(2, optional=True, group="_source_type")
+        betterproto.enum_field(2, group="_source_type")
     )
 
 
@@ -12753,7 +12753,7 @@ class WebcastLinkStateMessage(betterproto.Message):
     user_states: List["LinkUserState"] = betterproto.message_field(7)
     client_send_time: int = betterproto.int64_field(8)
     state_type: Optional["WebcastLinkStateMessageStateType"] = betterproto.enum_field(
-        9, optional=True, group="_state_type"
+        9, group="_state_type"
     )
     background: "BackGroundImageState" = betterproto.message_field(10)
     wallpaper_url: str = betterproto.string_field(12)
@@ -12878,7 +12878,7 @@ class WebcastPerceptionMessage(betterproto.Message):
     float_text: "Text" = betterproto.message_field(8)
     sheet: "PerceptionSheetInfo" = betterproto.message_field(9)
     float_icon_type: Optional["WebcastPerceptionMessagePerceptionDialogIconType"] = (
-        betterproto.enum_field(10, optional=True, group="_float_icon_type")
+        betterproto.enum_field(10, group="_float_icon_type")
     )
 
 
@@ -12904,7 +12904,7 @@ class LinkerInviteContent(betterproto.Message):
         10, betterproto.TYPE_INT64, betterproto.TYPE_STRING
     )
     multi_live_layout_enable: Optional["LinkerInviteContentLinkmicMultiLiveEnum"] = (
-        betterproto.enum_field(11, optional=True, group="_multi_live_layout_enable")
+        betterproto.enum_field(11, group="_multi_live_layout_enable")
     )
     multi_live_setting: "MultiLiveAnchorPanelSettings" = betterproto.message_field(12)
     from_linkmic_id_str: str = betterproto.string_field(13)
@@ -12951,7 +12951,7 @@ class PinCardView(betterproto.Message):
     guess_title: "GuessText" = betterproto.message_field(5)
     round_id_str: str = betterproto.string_field(6)
     pin_card_type: Optional["PinCardViewGuessPinType"] = betterproto.enum_field(
-        7, optional=True, group="_pin_card_type"
+        7, group="_pin_card_type"
     )
     is_auto_pin: bool = betterproto.bool_field(8)
 
@@ -12998,7 +12998,7 @@ class GuestShowdownUpdateResponseResponseData(betterproto.Message):
 class GoodyBagBaseInfo(betterproto.Message):
     goody_bag_id: str = betterproto.string_field(1)
     biz: Optional["GoodyBagBaseInfoGoodyBagBiz"] = betterproto.enum_field(
-        2, optional=True, group="_biz"
+        2, group="_biz"
     )
     room_id: str = betterproto.string_field(3)
     common_detail: "GoodyBagCommonDetail" = betterproto.message_field(4)
@@ -13093,10 +13093,10 @@ class InviterRivalExtra(betterproto.Message):
 @dataclass(eq=False, repr=False)
 class EcommerceEntrance(betterproto.Message):
     entrance_type: Optional["EcommerceEntranceEntranceType"] = betterproto.enum_field(
-        1, optional=True, group="_entrance_type"
+        1, group="_entrance_type"
     )
     creator_type: Optional["EcommerceEntranceCreatorType"] = betterproto.enum_field(
-        2, optional=True, group="_creator_type"
+        2, group="_creator_type"
     )
     schema: str = betterproto.string_field(3)
     shop_entrance_info: "EcommerceEntranceShopEntranceInfo" = betterproto.message_field(
@@ -13106,7 +13106,7 @@ class EcommerceEntrance(betterproto.Message):
         betterproto.message_field(5)
     )
     view_version: Optional["EcommerceEntranceViewVersion"] = betterproto.enum_field(
-        6, optional=True, group="_view_version"
+        6, group="_view_version"
     )
 
 
@@ -13115,7 +13115,7 @@ class EcommerceEntranceSellingPoint(betterproto.Message):
     show_text: str = betterproto.string_field(1)
     selling_point_type: Optional[
         "EcommerceEntranceSellingPointLiveSellingPointType"
-    ] = betterproto.enum_field(2, optional=True, group="_selling_point_type")
+    ] = betterproto.enum_field(2, group="_selling_point_type")
 
 
 @dataclass(eq=False, repr=False)
@@ -13135,7 +13135,7 @@ class EcommerceEntranceStoreOfficialLabel(betterproto.Message):
     label_image_light: "EcommerceEntranceShopLabelImage" = betterproto.message_field(1)
     label_image_dark: "EcommerceEntranceShopLabelImage" = betterproto.message_field(2)
     label_type: Optional["EcommerceEntranceStoreOfficialLabelStoreBrandLabelType"] = (
-        betterproto.enum_field(3, optional=True, group="_label_type")
+        betterproto.enum_field(3, group="_label_type")
     )
     label_type_str: str = betterproto.string_field(4)
 
@@ -13186,7 +13186,7 @@ class KeywordsLibrary(betterproto.Message):
 @dataclass(eq=False, repr=False)
 class ParticipateThresholdSelected(betterproto.Message):
     type: Optional["ParticipateThresholdSelectedParticipateThresholdType"] = (
-        betterproto.enum_field(1, optional=True, group="_type")
+        betterproto.enum_field(1, group="_type")
     )
     value: int = betterproto.int64_field(2)
 
@@ -13248,7 +13248,7 @@ class StarCommentPurchasePageResponseData(betterproto.Message):
 @dataclass(eq=False, repr=False)
 class PlayTogetherPermitNoticeContent(betterproto.Message):
     permit_type: Optional["PlayTogetherPermitNoticeContentPlayTogetherPermitType"] = (
-        betterproto.enum_field(1, optional=True, group="_permit_type")
+        betterproto.enum_field(1, group="_permit_type")
     )
 
 
@@ -13307,7 +13307,7 @@ class TakeTheStageOrderInfo(betterproto.Message):
     anchors: List["TakeTheStageOrderInfoAnchorInfo"] = betterproto.message_field(1)
     initiator: "CompetitionUserBase" = betterproto.message_field(2)
     switch_turn_reason: Optional["TakeTheStageOrderInfoSwitchTurnReason"] = (
-        betterproto.enum_field(3, optional=True, group="_switch_turn_reason")
+        betterproto.enum_field(3, group="_switch_turn_reason")
     )
 
 
@@ -13589,7 +13589,7 @@ class WebcastLinkMicBattlePunishFinish(betterproto.Message):
     channel_id: int = betterproto.int64_field(2)
     op_uid: int = betterproto.int64_field(3)
     reason: Optional["WebcastLinkMicBattlePunishFinishReason"] = betterproto.enum_field(
-        4, optional=True, group="_reason"
+        4, group="_reason"
     )
     battle_id: int = betterproto.int64_field(5)
     battle_settings: "BattleSetting" = betterproto.message_field(6)
@@ -13898,7 +13898,7 @@ class EoyBannerMileStone(betterproto.Message):
 @dataclass(eq=False, repr=False)
 class EoyBannerStreakInfo(betterproto.Message):
     streak_type: Optional["EoyBannerStreakInfoStreakType"] = betterproto.enum_field(
-        1, optional=True, group="_streak_type"
+        1, group="_streak_type"
     )
     progress: int = betterproto.int64_field(2)
     mile_stones: List["EoyBannerMileStone"] = betterproto.message_field(3)
@@ -14014,7 +14014,7 @@ class RoomLinkInfo(betterproto.Message):
 @dataclass(eq=False, repr=False)
 class RankTabInfo(betterproto.Message):
     rank_type: Optional["RankTabInfoProfitRankType"] = betterproto.enum_field(
-        1, optional=True, group="_rank_type"
+        1, group="_rank_type"
     )
     title: "Text" = betterproto.message_field(3)
     list_lynx_type: int = betterproto.int64_field(4)
@@ -14039,7 +14039,7 @@ class BizPermitJoinGroupResponseResponseData(betterproto.Message):
 @dataclass(eq=False, repr=False)
 class BattleTaskSettle(betterproto.Message):
     task_result: Optional["BattleTaskSettleResult"] = betterproto.enum_field(
-        1, optional=True, group="_task_result"
+        1, group="_task_result"
     )
     reward_start_time: int = betterproto.int64_field(2)
     reward_start_timestamp: int = betterproto.int64_field(3)
@@ -14214,7 +14214,7 @@ class WebcastBarrageMessage(betterproto.Message):
     base_message: "CommonMessageData" = betterproto.message_field(1)
     event: "WebcastBarrageMessageBarrageEvent" = betterproto.message_field(2)
     msg_type: Optional["WebcastBarrageMessageBarrageType"] = betterproto.enum_field(
-        3, optional=True, group="_msg_type"
+        3, group="_msg_type"
     )
     icon: "ImageModel" = betterproto.message_field(4)
     duration: int = betterproto.int64_field(6)
@@ -14227,14 +14227,14 @@ class WebcastBarrageMessage(betterproto.Message):
     right_label: "WebcastBarrageMessageRightLabel" = betterproto.message_field(13)
     use_marquee: bool = betterproto.bool_field(14)
     show_type: Optional["WebcastBarrageMessageShowType"] = betterproto.enum_field(
-        15, optional=True, group="_show_type"
+        15, group="_show_type"
     )
     badge: "BadgeStruct" = betterproto.message_field(16)
     render_type: Optional["WebcastBarrageMessageRenderType"] = betterproto.enum_field(
-        17, optional=True, group="_render_type"
+        17, group="_render_type"
     )
     left_icon_display_type: Optional["WebcastBarrageMessageIconDisplayType"] = (
-        betterproto.enum_field(18, optional=True, group="_left_icon_display_type")
+        betterproto.enum_field(18, group="_left_icon_display_type")
     )
     ribbon_animation: "ImageModel" = betterproto.message_field(19)
     animation_data: "AnimationData" = betterproto.message_field(20)
@@ -14366,7 +14366,7 @@ class FilterMsgRuleParamRandom(betterproto.Message):
 @dataclass(eq=False, repr=False)
 class TakeTheStageInfo(betterproto.Message):
     take_the_stage_status: Optional["TakeTheStageInfoTakeTheStageStatus"] = (
-        betterproto.enum_field(1, optional=True, group="_take_the_stage_status")
+        betterproto.enum_field(1, group="_take_the_stage_status")
     )
     take_the_stage_start_time: int = betterproto.int64_field(2)
     victory_lap_info: "TakeTheStageInfoVictoryLapInfo" = betterproto.message_field(3)
@@ -14394,7 +14394,7 @@ class TakeTheStageInfoVictoryLapInfo(betterproto.Message):
 @dataclass(eq=False, repr=False)
 class GameTagCategory(betterproto.Message):
     game_type: Optional["GameTagCategoryGameTagType"] = betterproto.enum_field(
-        1, optional=True, group="_game_type"
+        1, group="_game_type"
     )
     title: str = betterproto.string_field(2)
 
@@ -14446,10 +14446,10 @@ class PaddingInfo(betterproto.Message):
     icon_top_padding: int = betterproto.int32_field(6)
     icon_bottom_padding: int = betterproto.int32_field(7)
     horizontal_padding_rule: Optional["PaddingInfoHorizontalPaddingRule"] = (
-        betterproto.enum_field(8, optional=True, group="_horizontal_padding_rule")
+        betterproto.enum_field(8, group="_horizontal_padding_rule")
     )
     vertical_padding_rule: Optional["PaddingInfoVerticalPaddingRule"] = (
-        betterproto.enum_field(9, optional=True, group="_vertical_padding_rule")
+        betterproto.enum_field(9, group="_vertical_padding_rule")
     )
 
 
@@ -14867,7 +14867,7 @@ class PublicAreaMessageCommon(betterproto.Message):
 @dataclass(eq=False, repr=False)
 class PublicAreaMessageCommonTagItem(betterproto.Message):
     tag_type: Optional["PublicAreaMessageCommonTagItemTagType"] = (
-        betterproto.enum_field(1, optional=True, group="_tag_type")
+        betterproto.enum_field(1, group="_tag_type")
     )
     tag_text: "Text" = betterproto.message_field(2)
 
@@ -14875,7 +14875,7 @@ class PublicAreaMessageCommonTagItem(betterproto.Message):
 @dataclass(eq=False, repr=False)
 class PublicAreaMessageCommonTopic(betterproto.Message):
     topic_action_type: Optional["PublicAreaMessageCommonTopicTopicActionType"] = (
-        betterproto.enum_field(1, optional=True, group="_topic_action_type")
+        betterproto.enum_field(1, group="_topic_action_type")
     )
     topic_text: "Text" = betterproto.message_field(2)
     topic_tips: "Text" = betterproto.message_field(3)
@@ -14890,7 +14890,7 @@ class PublicAreaMessageCommonCreatorSuccessInfo(betterproto.Message):
 @dataclass(eq=False, repr=False)
 class PublicAreaMessageCommonUserMetrics(betterproto.Message):
     type: Optional["PublicAreaMessageCommonUserMetricsUserMetricsType"] = (
-        betterproto.enum_field(1, optional=True, group="_type")
+        betterproto.enum_field(1, group="_type")
     )
     metrics_value: str = betterproto.string_field(2)
 
@@ -15036,15 +15036,15 @@ class CohostListUser(betterproto.Message):
     avatar_thumb: "ImageModel" = betterproto.message_field(3)
     linked_time: int = betterproto.int64_field(4)
     play_type: Optional["CohostListUserLinkmicPlayType"] = betterproto.enum_field(
-        5, optional=True, group="_play_type"
+        5, group="_play_type"
     )
     room_id: int = betterproto.int64_field(6)
     linkmic_user_status: Optional["CohostListUserLinkmicUserStatus"] = (
-        betterproto.enum_field(7, optional=True, group="_linkmic_user_status")
+        betterproto.enum_field(7, group="_linkmic_user_status")
     )
     link_remaining_time: int = betterproto.int64_field(8)
     permission_type: Optional["CohostListUserCoHostPermissoinType"] = (
-        betterproto.enum_field(9, optional=True, group="_permission_type")
+        betterproto.enum_field(9, group="_permission_type")
     )
     display_id: str = betterproto.string_field(10)
     follow_status: int = betterproto.int64_field(11)
@@ -15120,7 +15120,7 @@ class GoodyBagCommonDetail(betterproto.Message):
     winner_headcount: int = betterproto.int32_field(1)
     joined_headcount: int = betterproto.int32_field(2)
     participate_method: Optional["GoodyBagCommonDetailParticipateMethod"] = (
-        betterproto.enum_field(3, optional=True, group="_participate_method")
+        betterproto.enum_field(3, group="_participate_method")
     )
     participate_method_content: str = betterproto.string_field(4)
     open_at: int = betterproto.int32_field(5)
@@ -15273,7 +15273,7 @@ class ProjectionConfig(betterproto.Message):
 class BattleRewardSettle(betterproto.Message):
     reward_settle_prompt: "BattlePrompt" = betterproto.message_field(1)
     status: Optional["BattleRewardSettleRewardStatus"] = betterproto.enum_field(
-        2, optional=True, group="_status"
+        2, group="_status"
     )
 
 
@@ -15297,7 +15297,7 @@ class JoinGroupContent(betterproto.Message):
     group_user: "GroupChannelAllUser" = betterproto.message_field(1)
     join_user: "GroupPlayer" = betterproto.message_field(2)
     type: Optional["JoinGroupContentJoinType"] = betterproto.enum_field(
-        3, optional=True, group="_type"
+        3, group="_type"
     )
     group_ext_info: List["RtcExtraInfo"] = betterproto.message_field(4)
 
@@ -15320,7 +15320,7 @@ class LikeIconInfo(betterproto.Message):
 class WebcastGameRankNotifyMessage(betterproto.Message):
     base_message: "CommonMessageData" = betterproto.message_field(1)
     msg_type: Optional["WebcastGameRankNotifyMessageMsgType"] = betterproto.enum_field(
-        2, optional=True, group="_msg_type"
+        2, group="_msg_type"
     )
     notify_text: "Text" = betterproto.message_field(3)
 
@@ -15388,13 +15388,13 @@ class TemplateContent(betterproto.Message):
     template_id: int = betterproto.int64_field(1)
     template_id_str: str = betterproto.string_field(2)
     status: Optional["TemplateContentPollTemplateStatus"] = betterproto.enum_field(
-        3, optional=True, group="_status"
+        3, group="_status"
     )
     poll_kind: Optional["TemplateContentPollKind"] = betterproto.enum_field(
-        4, optional=True, group="_poll_kind"
+        4, group="_poll_kind"
     )
     appeal_status: Optional["TemplateContentPollAppealStatus"] = betterproto.enum_field(
-        5, optional=True, group="_appeal_status"
+        5, group="_appeal_status"
     )
     violation_id_str: str = betterproto.string_field(6)
 
@@ -15653,7 +15653,7 @@ class TextPiece(betterproto.Message):
 @dataclass(eq=False, repr=False)
 class RankUpdate(betterproto.Message):
     request_first_show_type: Optional["RankUpdateProfitRankType"] = (
-        betterproto.enum_field(9, optional=True, group="_request_first_show_type")
+        betterproto.enum_field(9, group="_request_first_show_type")
     )
     supported_version: int = betterproto.int64_field(10)
     owneronrank: bool = betterproto.bool_field(11)
@@ -15831,7 +15831,7 @@ class User(betterproto.Message):
     fan_ticket_count: int = betterproto.int64_field(35)
     anchor_info: "AnchorInfo" = betterproto.message_field(36)
     link_mic_stats: Optional["UserLinkmicStatus"] = betterproto.enum_field(
-        37, optional=True, group="_link_mic_stats"
+        37, group="_link_mic_stats"
     )
     username: str = betterproto.string_field(38)
     enable_show_commerce_sale: bool = betterproto.bool_field(39)
@@ -15939,7 +15939,7 @@ class AudienceCancelContent(betterproto.Message):
 @dataclass(eq=False, repr=False)
 class StringBadge(betterproto.Message):
     badge_display_type: Optional["StringBadgeBadgeDisplayType"] = (
-        betterproto.enum_field(1, optional=True, group="_badge_display_type")
+        betterproto.enum_field(1, group="_badge_display_type")
     )
     content_str: str = betterproto.string_field(2)
 
@@ -15967,12 +15967,12 @@ class EmoteModel(betterproto.Message):
     package_id: str = betterproto.string_field(8)
     audit_info: "AuditInfo" = betterproto.message_field(9)
     reward_condition: Optional["EmoteModelRewardCondition"] = betterproto.enum_field(
-        10, optional=True, group="_reward_condition"
+        10, group="_reward_condition"
     )
     emote_upload_info: "EmoteUploadInfo" = betterproto.message_field(11)
     create_time: int = betterproto.int64_field(12)
     emote_scene: Optional["EmoteModelEmoteScene"] = betterproto.enum_field(
-        13, optional=True, group="_emote_scene"
+        13, group="_emote_scene"
     )
 
 
@@ -15982,7 +15982,7 @@ class SubWaveStrikeInfo(betterproto.Message):
     end_time: int = betterproto.int64_field(2)
     round: int = betterproto.int64_field(3)
     status: Optional["SubWaveStrikeInfoWaveStatus"] = betterproto.enum_field(
-        4, optional=True, group="_status"
+        4, group="_status"
     )
     emote_list: List["EmoteModel"] = betterproto.message_field(5)
     strike_reward: "WaveReward" = betterproto.message_field(6)
@@ -16086,7 +16086,7 @@ class Hashtag(betterproto.Message):
     title: str = betterproto.string_field(2)
     image: "ImageModel" = betterproto.message_field(3)
     namespace: Optional["HashtagHashtagNamespace"] = betterproto.enum_field(
-        4, optional=True, group="_namespace"
+        4, group="_namespace"
     )
 
 
@@ -16151,7 +16151,7 @@ class WebcastPartnershipGameOfflineMessageOfflineGameInfo(betterproto.Message):
     task_list_len: int = betterproto.int32_field(3)
     offline_type: Optional[
         "WebcastPartnershipGameOfflineMessageOfflineGameInfoOfflineType"
-    ] = betterproto.enum_field(4, optional=True, group="_offline_type")
+    ] = betterproto.enum_field(4, group="_offline_type")
 
 
 @dataclass(eq=False, repr=False)
@@ -16475,15 +16475,15 @@ class InviteBizContent(betterproto.Message):
         betterproto.message_field(1)
     )
     invite_source: Optional["InviteBizContentContentInviteSource"] = (
-        betterproto.enum_field(2, optional=True, group="_invite_source")
+        betterproto.enum_field(2, group="_invite_source")
     )
     operator_user_info: "User" = betterproto.message_field(3)
     operator_link_admin_type: Optional["InviteBizContentLinkMicUserAdminType"] = (
-        betterproto.enum_field(4, optional=True, group="_operator_link_admin_type")
+        betterproto.enum_field(4, group="_operator_link_admin_type")
     )
     invitee_user_info: "User" = betterproto.message_field(5)
     share_revenue_setting: Optional["InviteBizContentLinkmicShareRevenueSetting"] = (
-        betterproto.enum_field(6, optional=True, group="_share_revenue_setting")
+        betterproto.enum_field(6, group="_share_revenue_setting")
     )
 
 
@@ -16719,7 +16719,7 @@ class MatchInfo(betterproto.Message):
     critical: int = betterproto.int64_field(1)
     effect_card_in_use: bool = betterproto.bool_field(2)
     multiplier_type: Optional["MatchInfoMultiplierType"] = betterproto.enum_field(
-        3, optional=True, group="_multiplier_type"
+        3, group="_multiplier_type"
     )
     multiplier_value: int = betterproto.int64_field(4)
 
@@ -16767,7 +16767,7 @@ class RivalsGameTag(betterproto.Message):
 @dataclass(eq=False, repr=False)
 class GiftChallengeProgress(betterproto.Message):
     status: Optional["GiftChallengeProgressGiftChallengeStatus"] = (
-        betterproto.enum_field(1, optional=True, group="_status")
+        betterproto.enum_field(1, group="_status")
     )
     current_points: int = betterproto.int64_field(2)
     stage_data: List["GiftChallengeProgressStageData"] = betterproto.message_field(3)
@@ -16785,7 +16785,7 @@ class JoinDirectBizContent(betterproto.Message):
     reply_im_msg_id: int = betterproto.int64_field(1)
     outside_room_invite_source: Optional[
         "JoinDirectBizContentMultiGuestOutsideRoomInviteSource"
-    ] = betterproto.enum_field(2, optional=True, group="_outside_room_invite_source")
+    ] = betterproto.enum_field(2, group="_outside_room_invite_source")
 
 
 @dataclass(eq=False, repr=False)
@@ -16823,10 +16823,10 @@ class PaidContentInfo(betterproto.Message):
 class GroupChannelUser(betterproto.Message):
     channel_id: int = betterproto.int64_field(1)
     status: Optional["GroupChannelUserGroupStatus"] = betterproto.enum_field(
-        2, optional=True, group="_status"
+        2, group="_status"
     )
     type: Optional["GroupChannelUserJoinType"] = betterproto.enum_field(
-        3, optional=True, group="_type"
+        3, group="_type"
     )
     all_user: "AllListUser" = betterproto.message_field(4)
     join_time: int = betterproto.int64_field(5)
@@ -16945,13 +16945,13 @@ class WebcastGiftMessage(betterproto.Message):
     linkmic_gift_expression_strategy: Optional[
         "WebcastGiftMessageLinkmicGiftExpressionStrategy"
     ] = betterproto.enum_field(
-        34, optional=True, group="_linkmic_gift_expression_strategy"
+        34, group="_linkmic_gift_expression_strategy"
     )
     flying_mic_resources: "FlyingMicResources" = betterproto.message_field(35)
     disable_gift_tracking: bool = betterproto.bool_field(36)
     asset: "AssetsModel" = betterproto.message_field(37)
     version: Optional["WebcastGiftMessageGiftMessageVersion"] = betterproto.enum_field(
-        38, optional=True, group="_version"
+        38, group="_version"
     )
     sponsorship_info: List["WebcastGiftMessageSponsorshipInfo"] = (
         betterproto.message_field(39)
@@ -16977,7 +16977,7 @@ class WebcastGiftMessageInteractiveGiftInfo(betterproto.Message):
     cross_screen_role: int = betterproto.int64_field(2)
     ignore_config: Optional[
         "WebcastGiftMessageInteractiveGiftInfoGiftMessageIgnoreConfig"
-    ] = betterproto.enum_field(3, optional=True, group="_ignore_config")
+    ] = betterproto.enum_field(3, group="_ignore_config")
     uniq_id: int = betterproto.int64_field(4)
     to_user_team_id: int = betterproto.int64_field(5)
 
@@ -17030,13 +17030,13 @@ class BagItemPreUpdateInfo(betterproto.Message):
 class PollData(betterproto.Message):
     poll_id: int = betterproto.int64_field(1)
     poll_status: Optional["PollDataPollStatus"] = betterproto.enum_field(
-        2, optional=True, group="_poll_status"
+        2, group="_poll_status"
     )
     start_time: int = betterproto.int64_field(3)
     end_time: int = betterproto.int64_field(4)
     poll_option_list: List["PollOptionInfo"] = betterproto.message_field(5)
     poll_kind: Optional["PollDataPollKind"] = betterproto.enum_field(
-        6, optional=True, group="_poll_kind"
+        6, group="_poll_kind"
     )
     title: str = betterproto.string_field(7)
     operator: "User" = betterproto.message_field(8)
@@ -17048,7 +17048,7 @@ class PollData(betterproto.Message):
     poll_user_cnt: int = betterproto.int64_field(18)
     gift: "Gift" = betterproto.message_field(19)
     end_type: Optional["PollDataPollEndType"] = betterproto.enum_field(
-        20, optional=True, group="_end_type"
+        20, group="_end_type"
     )
     suggested_question_key: str = betterproto.string_field(21)
     is_suggested_question: bool = betterproto.bool_field(22)
@@ -17144,7 +17144,7 @@ class RoomHostMultiGuestPermissionInfo(betterproto.Message):
 @dataclass(eq=False, repr=False)
 class BattleAbTest(betterproto.Message):
     ab_test_type: Optional["BattleAbTestBattleAbTestType"] = betterproto.enum_field(
-        1, optional=True, group="_ab_test_type"
+        1, group="_ab_test_type"
     )
     group: int = betterproto.int32_field(2)
 
@@ -17239,7 +17239,7 @@ class FinishShowingGuestParams(betterproto.Message):
 class EmoteUploadInfo(betterproto.Message):
     user_id: int = betterproto.int64_field(1)
     emote_upload_source: Optional["EmoteUploadInfoUserEmoteUploadSource"] = (
-        betterproto.enum_field(2, optional=True, group="_emote_upload_source")
+        betterproto.enum_field(2, group="_emote_upload_source")
     )
     user_info: "User" = betterproto.message_field(3)
     user_id_str: str = betterproto.string_field(4)
@@ -17270,7 +17270,7 @@ class CompetitionInfo(betterproto.Message):
 @dataclass(eq=False, repr=False)
 class CompetitionInfoGroupShowInfo(betterproto.Message):
     status: Optional["CompetitionInfoGroupShowInfoGroupShowStatus"] = (
-        betterproto.enum_field(1, optional=True, group="_status")
+        betterproto.enum_field(1, group="_status")
     )
     end_timestamp: int = betterproto.int64_field(2)
     actual_end_timestamp: int = betterproto.int64_field(3)
@@ -17388,7 +17388,7 @@ class WebcastLinkMicBattleItemCard(betterproto.Message):
     base_message: "CommonMessageData" = betterproto.message_field(1)
     battle_id: int = betterproto.int64_field(2)
     msg_type: Optional["WebcastLinkMicBattleItemCardBattleCardMsgType"] = (
-        betterproto.enum_field(3, optional=True, group="_msg_type")
+        betterproto.enum_field(3, group="_msg_type")
     )
     card_obtain_guide: "CardObtainGuide" = betterproto.message_field(4)
     use_critical_strike_card: "UseCriticalStrikeCard" = betterproto.message_field(5)
@@ -17592,7 +17592,7 @@ class WebcastAudienceReserveUserStateMessage(betterproto.Message):
     base_message: "CommonMessageData" = betterproto.message_field(1)
     room_id: int = betterproto.int64_field(2)
     type: Optional["WebcastAudienceReserveUserStateMessageAudienceReserveType"] = (
-        betterproto.enum_field(3, optional=True, group="_type")
+        betterproto.enum_field(3, group="_type")
     )
     audience_reserve_user_info: "AudienceReserveUserInfo" = betterproto.message_field(4)
     audience_reserve_content: "AudienceReserveContent" = betterproto.message_field(100)
@@ -17693,7 +17693,7 @@ class StreamResolution(betterproto.Message):
 class ContentPositionMessage(betterproto.Message):
     content_i_d: str = betterproto.string_field(1)
     content_type: Optional["ContentPositionMessageContentPositionType"] = (
-        betterproto.enum_field(2, optional=True, group="_content_type")
+        betterproto.enum_field(2, group="_content_type")
     )
 
 
@@ -17770,31 +17770,31 @@ class ShowInfo(betterproto.Message):
 class RivalExtraInfo(betterproto.Message):
     text: str = betterproto.string_field(1)
     text_type: Optional["RivalExtraInfoTextType"] = betterproto.enum_field(
-        2, optional=True, group="_text_type"
+        2, group="_text_type"
     )
     label: str = betterproto.string_field(3)
     anchor_layer: Optional["RivalExtraInfoAnchorLayer"] = betterproto.enum_field(
-        4, optional=True, group="_anchor_layer"
+        4, group="_anchor_layer"
     )
     linker_info: "LinkerInfo" = betterproto.message_field(5)
     linkmic_user_settings: "AnchorLinkmicUserSettings" = betterproto.message_field(6)
     invite_block_reason: Optional["RivalExtraInfoInviteBlockReason"] = (
-        betterproto.enum_field(8, optional=True, group="_invite_block_reason")
+        betterproto.enum_field(8, group="_invite_block_reason")
     )
     show_play_type: Optional["RivalExtraInfoLinkmicPlayType"] = betterproto.enum_field(
-        9, optional=True, group="_show_play_type"
+        9, group="_show_play_type"
     )
     tag: "RivalExtraInfoTag" = betterproto.message_field(11)
     reserve_info: "RivalExtraInfoReserveInfo" = betterproto.message_field(12)
     detail_block_reason: Optional["RivalExtraInfoDetailBlockReason"] = (
-        betterproto.enum_field(13, optional=True, group="_detail_block_reason")
+        betterproto.enum_field(13, group="_detail_block_reason")
     )
     opt_pair_info: "OptPairInfo" = betterproto.message_field(14)
     tag_v2: "TagV2" = betterproto.message_field(15)
     eoy_level: int = betterproto.int64_field(16)
     battle_info: "RivalExtraInfoBattleInfo" = betterproto.message_field(17)
     cohost_layout_mode: Optional["RivalExtraInfoCohostLayoutMode"] = (
-        betterproto.enum_field(18, optional=True, group="_cohost_layout_mode")
+        betterproto.enum_field(18, group="_cohost_layout_mode")
     )
     game_tag: "RivalsGameTag" = betterproto.message_field(19)
 
@@ -17802,7 +17802,7 @@ class RivalExtraInfo(betterproto.Message):
 @dataclass(eq=False, repr=False)
 class RivalExtraInfoBattleInfo(betterproto.Message):
     info_type: Optional["RivalExtraInfoBattleInfoBattleInfoType"] = (
-        betterproto.enum_field(1, optional=True, group="_info_type")
+        betterproto.enum_field(1, group="_info_type")
     )
     value: int = betterproto.int64_field(2)
 
@@ -17883,23 +17883,23 @@ class UserSetting(betterproto.Message):
 @dataclass(eq=False, repr=False)
 class BadgeStruct(betterproto.Message):
     badge_display_type: Optional["BadgeStructBadgeDisplayType"] = (
-        betterproto.enum_field(1, optional=True, group="_badge_display_type")
+        betterproto.enum_field(1, group="_badge_display_type")
     )
     badge_priority_type: Optional["BadgeStructBadgePriorityType"] = (
-        betterproto.enum_field(2, optional=True, group="_badge_priority_type")
+        betterproto.enum_field(2, group="_badge_priority_type")
     )
     badge_scene: Optional["BadgeStructBadgeSceneType"] = betterproto.enum_field(
-        3, optional=True, group="_badge_scene"
+        3, group="_badge_scene"
     )
     position: Optional["BadgeStructPosition"] = betterproto.enum_field(
-        4, optional=True, group="_position"
+        4, group="_position"
     )
     display_status: Optional["BadgeStructDisplayStatus"] = betterproto.enum_field(
-        5, optional=True, group="_display_status"
+        5, group="_display_status"
     )
     greyed_by_client: int = betterproto.int64_field(6)
     exhibition_type: Optional["BadgeStructBadgeExhibitionType"] = (
-        betterproto.enum_field(7, optional=True, group="_exhibition_type")
+        betterproto.enum_field(7, group="_exhibition_type")
     )
     schema_url: str = betterproto.string_field(10)
     display: bool = betterproto.bool_field(11)
@@ -17978,7 +17978,7 @@ class ShortTouchExtra(betterproto.Message):
 class WebcastSubPinEventMessage(betterproto.Message):
     base_message: "CommonMessageData" = betterproto.message_field(1)
     action_type: Optional["WebcastSubPinEventMessageActionType"] = (
-        betterproto.enum_field(2, optional=True, group="_action_type")
+        betterproto.enum_field(2, group="_action_type")
     )
     card: "SubPinCard" = betterproto.message_field(3)
     operator_user_id: int = betterproto.int64_field(4)
@@ -18030,7 +18030,7 @@ class WebcastLinkmicBattleTaskMessage(betterproto.Message):
     base_message: "CommonMessageData" = betterproto.message_field(1)
     battle_task_message_type: Optional[
         "WebcastLinkmicBattleTaskMessageBattleTaskMessageType"
-    ] = betterproto.enum_field(2, optional=True, group="_battle_task_message_type")
+    ] = betterproto.enum_field(2, group="_battle_task_message_type")
     task_start: "BattleTaskStart" = betterproto.message_field(3)
     task_update: "BattleTaskUpdate" = betterproto.message_field(4)
     task_settle: "BattleTaskSettle" = betterproto.message_field(5)
@@ -18049,7 +18049,7 @@ class TextPieceGift(betterproto.Message):
     gift_id: int = betterproto.int64_field(1)
     name_ref: "PatternRef" = betterproto.message_field(2)
     show_type: Optional["TextPieceGiftGiftShowType"] = betterproto.enum_field(
-        3, optional=True, group="_show_type"
+        3, group="_show_type"
     )
     color_id: int = betterproto.int64_field(4)
 
@@ -18089,7 +18089,7 @@ class Img(betterproto.Message):
 class KickOutBizContent(betterproto.Message):
     operator_user_info: "User" = betterproto.message_field(1)
     operator_link_admin_type: Optional["KickOutBizContentLinkMicUserAdminType"] = (
-        betterproto.enum_field(2, optional=True, group="_operator_link_admin_type")
+        betterproto.enum_field(2, group="_operator_link_admin_type")
     )
     kick_player_user_info: "User" = betterproto.message_field(3)
 
@@ -18176,7 +18176,7 @@ class CancelJoinGroupContent(betterproto.Message):
     leaver: List["GroupPlayer"] = betterproto.message_field(1)
     operator: "GroupPlayer" = betterproto.message_field(2)
     type: Optional["CancelJoinGroupContentJoinType"] = betterproto.enum_field(
-        3, optional=True, group="_type"
+        3, group="_type"
     )
     group_user: "GroupChannelAllUser" = betterproto.message_field(4)
 
@@ -18357,7 +18357,7 @@ class JoinGroupBizContent(betterproto.Message):
     topic_info: "CohostTopic" = betterproto.message_field(5)
     algo_request_id: str = betterproto.string_field(6)
     cohost_layout_mode: Optional["JoinGroupBizContentCohostLayoutMode"] = (
-        betterproto.enum_field(7, optional=True, group="_cohost_layout_mode")
+        betterproto.enum_field(7, group="_cohost_layout_mode")
     )
     tag: "TagV2" = betterproto.message_field(8)
     game_tag: "RivalsGameTag" = betterproto.message_field(9)
@@ -18506,7 +18506,7 @@ class SubWaveInfoCommon(betterproto.Message):
     start_time: int = betterproto.int64_field(4)
     end_time: int = betterproto.int64_field(5)
     wave_status: Optional["SubWaveInfoCommonWaveStatus"] = betterproto.enum_field(
-        6, optional=True, group="_wave_status"
+        6, group="_wave_status"
     )
     thanks_list: List["SubWaveSubscriberInfo"] = betterproto.message_field(7)
     wave_target_sub_count: int = betterproto.int64_field(8)
@@ -18600,7 +18600,7 @@ class GiftMode(betterproto.Message):
 @dataclass(eq=False, repr=False)
 class LinkerMicIdxUpdateInfo(betterproto.Message):
     operation: Optional["LinkerMicIdxUpdateInfoMicIdxOperation"] = (
-        betterproto.enum_field(1, optional=True, group="_operation")
+        betterproto.enum_field(1, group="_operation")
     )
     user_i_d: int = betterproto.int64_field(2)
     mic_index: int = betterproto.int64_field(3)
@@ -18929,7 +18929,7 @@ class GetRunningNoticeboardMaterialContentResponseResponseData(betterproto.Messa
 @dataclass(eq=False, repr=False)
 class SubWaveImMsg(betterproto.Message):
     msg_type: Optional["SubWaveImMsgSubWaveImMsgType"] = betterproto.enum_field(
-        1, optional=True, group="_msg_type"
+        1, group="_msg_type"
     )
     new_come_subscriber_info: "SubWaveSubscriberInfo" = betterproto.message_field(2)
     sub_wave_info_common: "SubWaveInfoCommon" = betterproto.message_field(3)
@@ -18972,7 +18972,7 @@ class HighScoreControlCfg(betterproto.Message):
 @dataclass(eq=False, repr=False)
 class GiftConfigInfo(betterproto.Message):
     config_type: Optional["GiftConfigInfoGiftConfigType"] = betterproto.enum_field(
-        1, optional=True, group="_config_type"
+        1, group="_config_type"
     )
     role_config: "GiftConfigInfoRoleConfig" = betterproto.message_field(2)
 
@@ -19159,7 +19159,7 @@ class CompetitionResultsTeamInfo(betterproto.Message):
     rank: int = betterproto.int64_field(2)
     score: int = betterproto.int64_field(3)
     result: Optional["CompetitionResultsTeamInfoResult"] = betterproto.enum_field(
-        4, optional=True, group="_result"
+        4, group="_result"
     )
     contributors: List["CompetitionContributorInfo"] = betterproto.message_field(5)
     members: List["CompetitionTeamMemberInfo"] = betterproto.message_field(6)
@@ -19177,7 +19177,7 @@ class WebcastLiveShowMessage(betterproto.Message):
     message_type: "MessageType" = betterproto.enum_field(2)
     show_content: "ShowContent" = betterproto.message_field(3)
     showuserfinishreason: Optional["WebcastLiveShowMessageShowUserFinishReason"] = (
-        betterproto.enum_field(4, optional=True, group="_showuserfinishreason")
+        betterproto.enum_field(4, group="_showuserfinishreason")
     )
     operator_user_info: "LinkerMediaChangeOperator" = betterproto.message_field(5)
 
@@ -19295,7 +19295,7 @@ class LiveEventInfo(betterproto.Message):
 @dataclass(eq=False, repr=False)
 class SubPinCardText(betterproto.Message):
     type: Optional["SubPinCardTextTextType"] = betterproto.enum_field(
-        1, optional=True, group="_type"
+        1, group="_type"
     )
     content: str = betterproto.string_field(2)
 
@@ -19369,7 +19369,7 @@ class WebcastCompetitionMessage(betterproto.Message):
     base_message: "CommonMessageData" = betterproto.message_field(1)
     biz_common: "CompetitionCommon" = betterproto.message_field(2)
     type: Optional["WebcastCompetitionMessageCompetitionMessageType"] = (
-        betterproto.enum_field(3, optional=True, group="_type")
+        betterproto.enum_field(3, group="_type")
     )
     initiate: "CompetitionInitiate" = betterproto.message_field(100)
     reply: "CompetitionReply" = betterproto.message_field(101)
@@ -19384,7 +19384,7 @@ class WebcastCompetitionMessage(betterproto.Message):
 @dataclass(eq=False, repr=False)
 class CompetitionCommon(betterproto.Message):
     type: Optional["CompetitionCommonBattleType"] = betterproto.enum_field(
-        1, optional=True, group="_type"
+        1, group="_type"
     )
     channel_id: int = betterproto.int64_field(2)
     competition_id: int = betterproto.int64_field(3)
@@ -19414,7 +19414,7 @@ class PermitJoinGroupContent(betterproto.Message):
     approver: "GroupPlayer" = betterproto.message_field(1)
     agree_status: "PermitJoinGroupContentAgreeStatus" = betterproto.enum_field(2)
     type: Optional["PermitJoinGroupContentJoinType"] = betterproto.enum_field(
-        3, optional=True, group="_type"
+        3, group="_type"
     )
     group_ext_info: List["RtcExtraInfo"] = betterproto.message_field(4)
     group_user: "GroupChannelAllUser" = betterproto.message_field(5)
@@ -19464,7 +19464,7 @@ class WebcastEnvelopeMessage(betterproto.Message):
     base_message: "CommonMessageData" = betterproto.message_field(1)
     envelope_info: "MessageRedEnvelopInfo" = betterproto.message_field(2)
     display: Optional["WebcastEnvelopeMessageEnvelopeDisplay"] = betterproto.enum_field(
-        3, optional=True, group="_display"
+        3, group="_display"
     )
 
 
@@ -19497,7 +19497,7 @@ class LangTranslate(betterproto.Message):
 class CohostUserInfo(betterproto.Message):
     permission_type: int = betterproto.int64_field(1)
     source_type: Optional["CohostUserInfoSourceType"] = betterproto.enum_field(
-        2, optional=True, group="_source_type"
+        2, group="_source_type"
     )
     is_low_version: bool = betterproto.bool_field(3)
     best_teammate_uid: int = betterproto.int64_field(4)
@@ -19641,10 +19641,10 @@ class PlayTogetherBasicInfo(betterproto.Message):
     description: str = betterproto.string_field(2)
     apply_note: str = betterproto.string_field(3)
     status: Optional["PlayTogetherBasicInfoPlayTogetherStatus"] = (
-        betterproto.enum_field(4, optional=True, group="_status")
+        betterproto.enum_field(4, group="_status")
     )
     apply_limit_type: Optional["PlayTogetherBasicInfoApplyLimitType"] = (
-        betterproto.enum_field(5, optional=True, group="_apply_limit_type")
+        betterproto.enum_field(5, group="_apply_limit_type")
     )
     apply_user_num: int = betterproto.int64_field(6)
     is_applying: bool = betterproto.bool_field(7)
@@ -19826,7 +19826,7 @@ class GroupChatWatchLiveInfo(betterproto.Message):
 class CompetitionUserBase(betterproto.Message):
     user_id: int = betterproto.int64_field(1)
     role: Optional["CompetitionUserBaseCompetitionRoleType"] = betterproto.enum_field(
-        2, optional=True, group="_role"
+        2, group="_role"
     )
     nickname: str = betterproto.string_field(3)
     avatar: "ImageModel" = betterproto.message_field(4)
@@ -19921,7 +19921,7 @@ class LiveFlashSaleInfo(betterproto.Message):
 class LinkerMuteContent(betterproto.Message):
     user_id: int = betterproto.int64_field(1)
     mute_status: Optional["LinkerMuteContentMuteStatus"] = betterproto.enum_field(
-        2, optional=True, group="_mute_status"
+        2, group="_mute_status"
     )
 
 
@@ -19991,7 +19991,7 @@ class WebcastStarCommentNotificationMessage(betterproto.Message):
     base_message: "CommonMessageData" = betterproto.message_field(1)
     star_comment_action: Optional[
         "WebcastStarCommentNotificationMessageStarCommentAction"
-    ] = betterproto.enum_field(2, optional=True, group="_star_comment_action")
+    ] = betterproto.enum_field(2, group="_star_comment_action")
     msg_id: int = betterproto.int64_field(3)
     operator: "User" = betterproto.message_field(4)
     star_comment_message: "StarCommentMessage" = betterproto.message_field(5)
@@ -20036,10 +20036,10 @@ class PreviewPeriod(betterproto.Message):
 @dataclass(eq=False, repr=False)
 class GameAction(betterproto.Message):
     action_type: Optional["GameActionGameActionType"] = betterproto.enum_field(
-        1, optional=True, group="_action_type"
+        1, group="_action_type"
     )
     jump_page: Optional["GameActionJumpPage"] = betterproto.enum_field(
-        2, optional=True, group="_jump_page"
+        2, group="_jump_page"
     )
     follow_user_id: int = betterproto.int64_field(3)
 
@@ -20082,7 +20082,7 @@ class BizReplyResponseData(betterproto.Message):
 @dataclass(eq=False, repr=False)
 class PosIdentity(betterproto.Message):
     type: Optional["PosIdentityPosIdentityType"] = betterproto.enum_field(
-        1, optional=True, group="_type"
+        1, group="_type"
     )
     value: str = betterproto.string_field(2)
 
@@ -20390,7 +20390,7 @@ class WebcastMgPunishCenterActionMessage(betterproto.Message):
 @dataclass(eq=False, repr=False)
 class UnionAnimationInfo(betterproto.Message):
     union_type: Optional["UnionAnimationInfoUnionAnimationInfoType"] = (
-        betterproto.enum_field(1, optional=True, group="_union_type")
+        betterproto.enum_field(1, group="_union_type")
     )
     rank_type_array: List["UnionAnimationInfoProfitRankType"] = betterproto.enum_field(
         2
@@ -20409,12 +20409,12 @@ class SubInfo(betterproto.Message):
     is_subscribing: bool = betterproto.bool_field(7)
     sub_level: "SubLevel" = betterproto.message_field(8)
     status: Optional["SubInfoPayStatus"] = betterproto.enum_field(
-        9, optional=True, group="_status"
+        9, group="_status"
     )
     sub_info_not_found: bool = betterproto.bool_field(10)
     sku_name: str = betterproto.string_field(11)
     pay_channel: Optional["SubInfoPayChannel"] = betterproto.enum_field(
-        12, optional=True, group="_pay_channel"
+        12, group="_pay_channel"
     )
     grace_info: "GraceInfo" = betterproto.message_field(13)
     price_change_info: "PriceChangeInfo" = betterproto.message_field(16)
@@ -20505,7 +20505,7 @@ class DisplayControl(betterproto.Message):
         3, betterproto.TYPE_STRING, betterproto.TYPE_MESSAGE
     )
     horizontal_trigger_type: Optional["DisplayControlHorizontalOnclickTriggerType"] = (
-        betterproto.enum_field(4, optional=True, group="_horizontal_trigger_type")
+        betterproto.enum_field(4, group="_horizontal_trigger_type")
     )
 
 
@@ -20530,7 +20530,7 @@ class SubscribeInfo(betterproto.Message):
     user_gift_sub_auth: bool = betterproto.bool_field(9)
     anchor_gift_sub_auth: bool = betterproto.bool_field(10)
     status: Optional["SubscribeInfoPayStatus"] = betterproto.enum_field(
-        11, optional=True, group="_status"
+        11, group="_status"
     )
     sub_end_time: int = betterproto.int64_field(12)
     package_id: str = betterproto.string_field(13)
@@ -21498,7 +21498,7 @@ class WebcastRoomStreamAdaptationMessage(betterproto.Message):
 class WebcastLinkmicBattleNoticeMessage(betterproto.Message):
     base_message: "CommonMessageData" = betterproto.message_field(1)
     notice_type: Optional["WebcastLinkmicBattleNoticeMessageBattleNoticeType"] = (
-        betterproto.enum_field(2, optional=True, group="_notice_type")
+        betterproto.enum_field(2, group="_notice_type")
     )
     anchor_guide: "BattleNoticeAnchorGuide" = betterproto.message_field(3)
     toast: "BattleNoticeToast" = betterproto.message_field(4)
@@ -21669,7 +21669,7 @@ class FlashSaleStock(betterproto.Message):
 @dataclass(eq=False, repr=False)
 class CompetitionReply(betterproto.Message):
     reply_type: Optional["CompetitionReplyCompetitionReplyType"] = (
-        betterproto.enum_field(1, optional=True, group="_reply_type")
+        betterproto.enum_field(1, group="_reply_type")
     )
     replier: "CompetitionUserBase" = betterproto.message_field(2)
     initiate: "CompetitionInitiate" = betterproto.message_field(3)
@@ -21690,7 +21690,7 @@ class CompetitionReplyAnchorInfo(betterproto.Message):
 class CompetitionReplyTakeTheStageBiz(betterproto.Message):
     take_the_stage_status: Optional[
         "CompetitionReplyTakeTheStageBizTakeTheStageStatus"
-    ] = betterproto.enum_field(1, optional=True, group="_take_the_stage_status")
+    ] = betterproto.enum_field(1, group="_take_the_stage_status")
     performance_start_time: int = betterproto.int64_field(2)
     anchors: List["CompetitionReplyAnchorInfo"] = betterproto.message_field(3)
 
@@ -21730,7 +21730,7 @@ class WebcastGoodyBagMessage(betterproto.Message):
     base_info: "GoodyBagBaseInfo" = betterproto.message_field(2)
     winners: List["GoodyBagWinnerInfo"] = betterproto.message_field(3)
     type: Optional["WebcastGoodyBagMessageGoodyBagMessageType"] = (
-        betterproto.enum_field(4, optional=True, group="_type")
+        betterproto.enum_field(4, group="_type")
     )
 
 
